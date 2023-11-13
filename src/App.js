@@ -3,18 +3,13 @@ import {createBrowserRouter, Router, Routes, Route, RouterProvider} from 'react-
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/auth/Home";
+import Header from "./pages/components/nav/Header";
 
 
 function App() {
-  // ROUTER OPTION 
-  // var router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Root />,
-  //   },
-  // ]);
   return (
     <>
+      <Header />
       <Routes>
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/register" element={<Register />}/>
