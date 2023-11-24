@@ -21,7 +21,8 @@ function App() {
           dispatch({
             type: 'LOGGED_IN_USER',
             payload: {
-              name: 'shiro'
+              email: user.email,
+              token: idTokenResult.token
             }
         })
       }

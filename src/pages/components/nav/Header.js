@@ -2,15 +2,31 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import {Link} from 'react-router-dom'
+import { signOut, getAuth } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
 
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState('mail');
+  let dispatch = useDispatch()
   const onClick = (e) => {
     console.log('click ', e);
     setCurrent(e.key);
   };
+
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+    .then(() => {
+      dispatch({
+        type: 'LOGOUT',
+        payload: null
+      })
+    }).catch((error) => {
+      
+    });
+  }
   return (
     <>
       <Menu onClick={onClick} mode="horizontal" style={{display: 'block'}}>
@@ -20,6 +36,7 @@ const Header = () => {
         <Menu.SubMenu key='app' icon={<UserAddOutlined />}  title='Username'>
           <Menu.Item>AAA</Menu.Item>
           <Menu.Item>AAA</Menu.Item>
+          <Menu.Item icon={<UserOutlined />} onClick={logout}>Log out</Menu.Item>
         </Menu.SubMenu>
       </Menu>
     </>
