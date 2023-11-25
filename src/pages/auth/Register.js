@@ -25,12 +25,6 @@ const Register = () =>{
         setEmail("")
     }
 
-    // const handleClick = () =>{
-    //     window.localStorage.setItem('emailForRegistration', email)
-    //     let a = window.localStorage.getItem('emailForRegistration', email)
-    //     console.log(a);
-    // }
-
     const registerForm = () => 
     <form onSubmit={handleSubmit}>
         <input autoFocus type="email" value={email} className='form-control' onChange={e => {setEmail(e.target.value)}}></input>
