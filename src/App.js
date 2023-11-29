@@ -9,6 +9,7 @@ import Register from "./pages/auth/Register";
 import Home from "./pages/auth/Home";
 import Header from "./pages/components/nav/Header";
 import RegisterComplete from "./pages/auth/RegisterComplete";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route exact path="/register" element={<Register />}/>
         <Route exact path="/login" element={<Login />}/>
         <Route exact path="/register/complete" element={<RegisterComplete />}/>
+        <Route exact path="/forgot/password" element={<ForgotPassword />}/>
       </Routes>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {auth, googleAuthProvider} from '../../firebase';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {toast} from 'react-toastify'
@@ -6,18 +6,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import { sendSignInLinkToEmail, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
+import { Link } from "react-router-dom";
 
 const Login = () =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
+    const {user} = useSelector((state) => ({...state}))
     const provider = new GoogleAuthProvider();
     let dispatch = useDispatch()
 
+    useEffect(() => {
+        if(user && user.token){
+            window.history.pushState({}, undefined, "/")
+            window.location.reload()
+        } 
+    }, [user])
+
+
     const handleSubmit = async (e)=>{
         e.preventDefault()
-        setLoading(true)
         const auth = getAuth();
         const result = await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -27,7 +35,8 @@ const Login = () =>{
                 type: "LOGGED_IN_USER",
                 payload: {
                     email: user.email,
-                    token: user.accessToken
+                    token: user.accessToken,
+                    userName: user.displayName
                 }
             })
             window.location.reload()
@@ -85,6 +94,8 @@ const Login = () =>{
         shape='round'
         icon={<GoogleOutlined />}
         size="large">Đăng nhập bằng Gmail</Button>
+
+        <Link to="/forgot/password" className="float-end text-danger">Quên mật khẩu</Link>
     </form>
     return (
         <div className="container p-5">

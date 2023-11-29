@@ -6,10 +6,11 @@ import { sendSignInLinkToEmail } from 'firebase/auth';
 
 const Register = () =>{
     const [email, setEmail] = useState('')
+    const [userName, setUserName] = useState('')
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const config = {
-            url: 'http://localhost:3000/register/complete',
+            url: `http://localhost:3000/register/complete`,
             handleCodeInApp: true
         }
         // await auth.sendSignInLinkToEmail(email, config) - Outdate
@@ -22,12 +23,13 @@ const Register = () =>{
             });
         // Save email in local storage
         window.localStorage.setItem('emailForRegistration', email)
-        setEmail("")
+        window.localStorage.setItem('userNameForRegistration', userName)
     }
 
     const registerForm = () => 
     <form onSubmit={handleSubmit}>
-        <input autoFocus type="email" value={email} className='form-control' onChange={e => {setEmail(e.target.value)}}></input>
+        <input autoFocus placeholder="Email plz :>>" type="email" value={email} className='form-control' onChange={e => {setEmail(e.target.value)}}></input>
+        <input placeholder="Tên tk" value={userName} className='form-control' onChange={e => {setUserName(e.target.value)}}></input>
         <button style={{margin: '10px 0 0 0'}} type="submit" class="btn btn-outline-secondary">Register</button>
     </form>
     return (

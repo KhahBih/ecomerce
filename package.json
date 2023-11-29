@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "y",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -50,5 +50,9 @@
     "css-loader": "^6.8.1",
     "react-app-rewired": "^2.2.1",
     "style-loader": "^3.3.3"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "config-overrides.js",
+  "author": "",
+  "license": "ISC"
 }
