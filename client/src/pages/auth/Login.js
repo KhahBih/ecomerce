@@ -8,6 +8,21 @@ import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
+import axios from 'axios'
+
+const createOrUpdateUser = async (authtoken) => {
+    return await axios.post('http://localhost:8000/api/create-or-update-user', {
+        headers: {
+            authtoken
+        }
+    })
+    .then((res) => {
+        console.log("creaye or update", res)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
 
 const Login = () =>{
     const [email, setEmail] = useState('')
@@ -16,12 +31,12 @@ const Login = () =>{
     const provider = new GoogleAuthProvider();
     let dispatch = useDispatch()
 
-    useEffect(() => {
-        if(user && user.token){
-            window.history.pushState({}, undefined, "/")
-            window.location.reload()
-        } 
-    }, [user])
+    // useEffect(() => {
+    //     if(user && user.token){
+    //         window.history.pushState({}, undefined, "/")
+    //         window.location.reload()
+    //     } 
+    // }, [user])
 
 
     const handleSubmit = async (e)=>{
@@ -31,15 +46,16 @@ const Login = () =>{
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            dispatch({
-                type: "LOGGED_IN_USER",
-                payload: {
-                    email: user.email,
-                    token: user.accessToken,
-                    userName: user.displayName
-                }
-            })
-            window.location.reload()
+                createOrUpdateUser(user.accessToken)
+            // dispatch({
+            //     type: "LOGGED_IN_USER",
+            //     payload: {
+            //         email: user.email,
+            //         token: user.accessToken,
+            //         userName: user.displayName
+            //     }
+            // })
+            // window.location.reload()
         })
         .catch((error) => {
             console.log(error)
@@ -47,7 +63,7 @@ const Login = () =>{
                 toast.error("Sai tên tài khoản hoặc mật khẩu");
             }
         });
-        window.history.pushState({}, undefined, "/")
+        // window.history.pushState({}, undefined, "/")
     }
 
     const googleLogin = async (e) => {
