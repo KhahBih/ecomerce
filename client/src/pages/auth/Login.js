@@ -10,8 +10,9 @@ import { useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
+console.log(process.env.REACT_APP_API)
 const createOrUpdateUser = async (authtoken) => {
-    return await axios.post('http://localhost:8000/api/create-or-update-user', {
+    return await axios.post(process.env.REACT_APP_API, {
         headers: {
             authtoken
         }
