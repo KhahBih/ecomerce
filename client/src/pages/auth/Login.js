@@ -12,8 +12,8 @@ import axios from 'axios'
 
 console.log(process.env.REACT_APP_API)
 const createOrUpdateUser = async (authtoken) => {
-    return await axios.post(process.env.REACT_APP_API, {
-        headers: {
+    return await axios.post(process.env.REACT_APP_API, {}, {
+        headers:{
             authtoken
         }
     })

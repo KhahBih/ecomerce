@@ -1,5 +1,5 @@
 exports.createOrUpdateUser = (req, res)=>{
     res.json({
-        data: "yo user"
+        data: "create or update user"
     })
 }
